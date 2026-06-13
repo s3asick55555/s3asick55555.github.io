@@ -1,32 +1,29 @@
----
-title: Securinet CTF
-
----
-
 # Securinet CTF 2025
 
-## Recovery
+## Forensic
+
+### Recovery
 
 Bài này tương đối cần nhiều thời gian để giải nên mình sẽ nói nhanh và vắn tắt.
 
-### Overview
+#### Overview
 
 Ta có một network capture và thư mục người dùng.
 
-### Xem xét packet capture
+#### Xem xét packet capture
 
-![image](https://hackmd.io/_uploads/rJzYgDUCle.png)
+![image](rJzYgDUCle.png)
 
 
 Có các gói tin bị hỏng ở giao thức DNS, chứng tỏ có điều gì đó mờ ám ở giao thức DNS.
 
 Một trong những gói tin bị lỗi có nội dung rất lạ:
 
-![image](https://hackmd.io/_uploads/S1oZWwI0gl.png)
+![image](S1oZWwI0gl.png)
 
 Chúng truy vấn đến EBWXVMBAEMQCAIBEEAQCBX67EAQJQIBAEAQCAIBAMAQCAIBAEAQCAIBAEAQCAIBAEA.0.meow, một tên miền rất lạ. Ở dưới có khá nhiều truy vấn DNS tương tự.
 
-### Xem xét thư mục người dùng
+#### Xem xét thư mục người dùng
 
 ```
 whoami
@@ -138,7 +135,7 @@ Lịch sử PowerShell cho thấy người dùng (?) đang cố test các chức
 
 Trong số đó có một repo GitHub lạ `https://github.com/youssefnoob003/dns100-free.git` và có khả năng liên quan đến các gói tin DNS lạ được đề cập ở trên.
 
-![image](https://hackmd.io/_uploads/rkJEfP8Rel.png)
+![image](rkJEfP8Rel.png)
 
 Thoạt nhìn qua thì không có gì đáng ngờ ở repo này. Tuy nhiên, khi xem xét 12 commits, có một đoạn code khá đáng ngờ.
 
@@ -306,14 +303,14 @@ if __name__ == "__main__":
 
 Phân tích file mal.bin bằng Detect It Easy, ta có thể thấy file này được nén bằng UPX.
 
-![image](https://hackmd.io/_uploads/rJZsqDUCle.png)
+![image](rJZsqDUCle.png)
 
 Sử dụng UPX để giải nén, chúng ta có 1 file mới hoàn chỉnh hơn.
 
-![image](https://hackmd.io/_uploads/Hkg1oDLCgg.png)
+![image](Hkg1oDLCgg.png)
 
 
-## Phân tích file thực thi
+#### Phân tích file thực thi
 
 Vì đây là một file thực thi Windows nên sẽ hơi khó để xác định chính xác được entrypoint.
 
@@ -520,10 +517,10 @@ if __name__ == "__main__":
 
 Giải mã sillyflag.png, ta có:
 
-![decrypted_sillyflag](https://hackmd.io/_uploads/BklLRwUAgg.png)
+![decrypted_sillyflag](BklLRwUAgg.png)
 
 
-# Slient Visitor
+### Slient Visitor
 
 1. What is the SHA256 hash of the disk image provided?
 
@@ -653,7 +650,7 @@ Ngoài ra, trong history.sqlite có lưu email cuối mà người dùng có nh�
 
 Kiểm tra link GitHub mà đối phương đã gửi cho nguời dùng, ta có 4 files:
 
-![image](https://hackmd.io/_uploads/Hy9FuhPAel.png)
+![image](Hy9FuhPAel.png)
 
 index.js: không có gì đáng chú ý, ngoại trừ đoạn code ở dưới cùng có vẻ đang cố chạy ngầm file proc.js:
 
@@ -741,7 +738,7 @@ Answer: `https://tmpfiles.org/dl/23860773/sys.exe`
 
 Ta biết file ở trong AppData/Roaming, ta có thể trích xuất file ra và mang nó lên VirusTotal để kiểm thử:
 
-![image](https://hackmd.io/_uploads/H1V0j3P0gg.png)
+![image](H1V0j3P0gg.png)
 
 Trong phần Details sẽ có hash của malware cũng như là các thông tin khác nói rằng malware được viết bằng Golang và viết cho Windows.
 
@@ -794,7 +791,7 @@ Answer: `http://40.113.161.85:5000/helppppiscofebabe23`
 
 Quay lại với VirusTotal, ta thấy có 3 file đáng ngờ mà malware đã drop:
 
-![image](https://hackmd.io/_uploads/Bkd6-6P0xx.png)
+![image](Bkd6-6P0xx.png)
 
 Kiểm tra file id.txt theo đường dẫn trên, ta có `3649ba90-266f-48e1-960c-b908e1f28aef` (bên trong thư mục của người dùng Public, kiểm tra bên trong thư mục người dùng hiện tại thì không có gì ngoài 1 bản sao của malware)
 
@@ -803,7 +800,7 @@ Answer: `3649ba90-266f-48e1-960c-b908e1f28aef`
 13. Which registry key did the malware modify or add to maintain persistence? 
 14. What is the content of this registry?
 
-![image](https://hackmd.io/_uploads/ry6TzpDCgg.png)
+![image](ry6TzpDCgg.png)
 
 Bên trong tất cả các khóa registry được mở chỉ có khóa này là đáng ngờ, hoàn toàn trùng khớp với việc có đường liên kết tên là MyApp.lnk đặt trong thư mục Startup để chạy cùng hệ thống mỗi lần khởi động.
 
@@ -813,7 +810,7 @@ Nội dung của khóa là đường dẫn đến một bản copy của malware
 
 15. The malware uses a secret token to communicate with the C2 server. What is the value of this key?
 
-![image](https://hackmd.io/_uploads/rythm6PRex.png)
+![image](rythm6PRex.png)
 
 Trong phần Detail của VirusTotal, ở dưới phần Build Info Settings, trong khó -ldflags có một trường là main.secret
 
