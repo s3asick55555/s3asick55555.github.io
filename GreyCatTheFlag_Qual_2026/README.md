@@ -93,7 +93,7 @@ TeleChat handles include the leading @, so the answer would be `@vanta_supply`
 
 In the `/media/0/Pictures/TeleChat` there are 2 pictures, one of which is `IMG_20260514_164900.png`, with include the plate number (image was too heavy to be put here, so only the plate number is shown):
 
-![image](https://hackmd.io/_uploads/HywLJHYeMl.png)
+![image](HywLJHYeMl.png)
 
 The plate number is `SG67301K`
 
@@ -104,7 +104,7 @@ According to the `/system_ce/0/notification_history.xml`, user `jiawei` appeared
 ##### What coordinates identify the pickup point?
 The other image is `spot.jpg`:
 
-![spot](https://hackmd.io/_uploads/HkHPyBYgGe.jpg)
+![spot](HkHPyBYgGe.jpg)
 
 
 Reverse image search on Google shows that this is Singapore Zoo, which locates at `1.4044021,103.7921862`.
